@@ -39,7 +39,7 @@ int main()
   char* filename = "log.txt";
   adc_a0 = mraa_aio_init(0);
 
-  FLAG = 1;
+  int FLAG = 1;
   
   if (adc_a0 == NULL) {
     return 1;
