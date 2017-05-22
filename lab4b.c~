@@ -38,6 +38,8 @@ int main()
   FILE *fp; 
   fp = fopen("log.txt", "w"); 
 
+  fprintf(fp, "Testing...\n");
+
   for (;;) {
     
     /* Calculate temperature reading */ 

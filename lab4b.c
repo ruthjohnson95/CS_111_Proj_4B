@@ -70,8 +70,6 @@ int main()
     fprintf(fp, "Gpio is %d\n", button_value);
     fprintf(fp, "%d:%d:%d \n",hour, min, sec);
 
-    fclose(fp);
-
     /* delay a certain amount of time */ 
     sleep(period);
 
