@@ -154,7 +154,7 @@ int main ( int argc, char **argv )
     /* Farenheit */
     if(celcius == 0)
       {
-  temp = temp*(9.0/5.0) + 32;
+	temp = temp*(9.0/5.0) + 32;
       }
 
 
@@ -170,12 +170,12 @@ int main ( int argc, char **argv )
     if(make_reports)
       {
   fprintf(stdout, "%d:%d:%d ",hour, min, sec);
-  fprintf (stdout, "%0.2f\n", temp);
+  fprintf (stdout, "%0.1f\n", temp);
   //    fprintf(stdout, "Gpio is %d\n", button_value);
   if(logflag)
     {
       dprintf(fp, "%d:%d:%d ",hour, min, sec);
-      dprintf (fp, "%0.2f\n", temp);
+      dprintf (fp, "%0.1f\n", temp);
       //    fprintf(fp, "Gpio is %d\n", button_value);
     }
       } // end of if reporting
@@ -189,7 +189,7 @@ int main ( int argc, char **argv )
       time(&start);
     }
 
-      FLAG = 0;
+    //      FLAG = 0;
 
     /* poll for input */
     ret = poll(&fds, 1, 0);
@@ -209,7 +209,7 @@ int main ( int argc, char **argv )
 
 	if(strcmp(buffer, "OFF\n") == 0)
 	  {
-	    fprintf(stderr, "...OFF\n");
+	    //	    fprintf(stderr, "...OFF\n");
 	    if(logflag)
 	      {
 		dprintf(fp, "OFF\n");
@@ -223,12 +223,12 @@ int main ( int argc, char **argv )
 	      {
 		dprintf(fp,"STOP\n");
 	      }
-	    fprintf(stderr, "...STOP\n");
+	    //	    fprintf(stderr, "...STOP\n");
 	  }
 	else if(strcmp("START\n", buffer) == 0)
 	  {
 	    make_reports = 1 ;
-	    fprintf(stderr, "...START\n");
+	    //	    fprintf(stderr, "...START\n");
 	    if(logflag)
 	      {
 		dprintf(fp, "START\n");
@@ -237,7 +237,7 @@ int main ( int argc, char **argv )
 	else if(strcmp(buffer, "SCALE=F\n") == 0)
 	  {
 	    celcius=0;
-	    fprintf(stderr, "...SCALE=F\n");
+	    //	    fprintf(stderr, "...SCALE=F\n");
 	    if(logflag)
 	      {
 		dprintf(fp, "SCALE=F\n");
@@ -246,7 +246,7 @@ int main ( int argc, char **argv )
 	else if(strcmp(buffer, "SCALE=C\n") == 0)
 	  {
 	    celcius=1;
-	    fprintf(stderr, "...SCALE=C\n");
+	    //	    fprintf(stderr, "...SCALE=C\n");
 	    if(logflag)
 	      {
 		dprintf(fp, "SCALE=C\n");
@@ -258,7 +258,7 @@ int main ( int argc, char **argv )
 
 	    period = atoi(buffer+7);
 
-	    fprintf(stderr, "...PERIOD=%d\n", period);
+	    //	    fprintf(stderr, "...PERIOD=%d\n", period);
 	    if(logflag)
 	      {
 		dprintf(fp, "...PERIOD=\n");
