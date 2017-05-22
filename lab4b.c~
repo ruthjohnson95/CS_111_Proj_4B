@@ -14,7 +14,7 @@ int main()
     return 1;
   }
   for (;;) {
-    adc_value = mraa_aio_read(adc_a0);
+    adc_value = mraa_aio_read_float(adc_a0);
     float R = 1023.0/adc_value-1.0;
     R = R0*R;
     float temp = 1.0/(log(R/R0)/B+1/298.15)-273.15;
