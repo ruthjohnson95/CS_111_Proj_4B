@@ -11,6 +11,12 @@ const int B = 4275;
 const int R0 = 100;
 const int button_pin = 3; 
 
+void shutdown()
+{
+  // log time and SHUTDOWN 
+
+}
+
 void process_input(char* buffer)
 {
   if(strcmp(buffer, "OFF"))
@@ -65,9 +71,9 @@ int main()
 
   gpio = mraa_gpio_init(button_pin); 
   mraa_gpio_dir(gpio, MRAA_GPIO_IN);
-  time_t curtime;
-  struct tm *loctime;
 
+  time_t curtime; 
+  
   FILE *fp; 
 
   time_t start, end;
@@ -109,12 +115,14 @@ int main()
     int button_value = mraa_gpio_read(gpio); 
     
     /* Local Time */ 
+    
     curtime = time (NULL);
     struct tm *tm_struct = localtime (&curtime);
     int hour = tm_struct -> tm_hour; 
     int min = tm_struct -> tm_min; 
     int sec = tm_struct -> tm_sec; 
     
+
     /* print logs  */
     
     fprintf (stdout, "The temperature is %0.2f degree Celcius\n", temp);
