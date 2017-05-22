@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/poll.h>
 
 const int B = 4275;
 const int R0 = 100;
@@ -39,11 +40,26 @@ int main()
   time_t start, end;
   double elapsed;
 
+  struct pollfd fds;
+  int ret; 
+  fds.fd = 0; /* this is STDIN */
+  fds.events = POLLIN;
+
   for (;;) {
+
+    /* poll for input */ 
+    ret = poll(&fds, 1, 0);
+    if(ret == 1)
+      printf("Yep\n");
+    else if(ret == 0)
+      printf("No\n");
+    else
+      printf("Error\n");
+
 
     /* read input */
     characters = getline(&buffer,&bufsize,stdin);
-    printf("You typed: '%s'\n",buffer);
+    printf("You typed: %s \n",buffer);
 
     fp = fopen("log.txt", "a");
     /* Calculate temperature reading */ 
