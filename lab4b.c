@@ -56,7 +56,7 @@ int main()
     fprintf(stdout, "%d:%d:%d \n",hour, min, sec); 
 
     /* delay a certain amount of time */ 
-    sleep(period*1000);
+    sleep(period);
   }
   mraa_aio_close(adc_a0);
   return MRAA_SUCCESS;
