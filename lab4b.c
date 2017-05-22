@@ -39,6 +39,8 @@ int main()
   char* filename = "log.txt";
   adc_a0 = mraa_aio_init(0);
 
+  FLAG = 1;
+  
   if (adc_a0 == NULL) {
     return 1;
   }
@@ -127,6 +129,7 @@ int main()
 	    //int index = strchr(buffer,"=")-buffer;
 
 	    period = atoi(buffer+7);
+
 	    fprintf(stderr, "...PERIOD=%d\n", period);
 	    if(logflag)
 	      {
@@ -141,6 +144,14 @@ int main()
 
       } // end of poll if
 
+    /* button reading */
+    int button_value = mraa_gpio_read(gpio);
+
+    time(&start);
+
+    if(elapsed >= period || FLAG )
+    {
+    FLAG = 0;
     /* Calculate temperature reading */
     adcValue = mraa_aio_read(adc_a0);
     float R;
@@ -154,8 +165,6 @@ int main()
 	temp = temp*(9.0/5.0) + 32;
       }
 
-    /* button reading */
-    int button_value = mraa_gpio_read(gpio);
 
     /* Local Time */
 
@@ -179,6 +188,14 @@ int main()
 	  }
       } // end of if reporting
 
+    } // end of if elapsed
+
+      time(&end);
+      elapsed = difftime(end, start);
+
+      if (elapsed > period) {
+        time(&start);
+      }
 
   } // end of infinite for-loop
 
