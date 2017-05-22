@@ -53,7 +53,7 @@ void process_input(char* buffer)
   else if(strcmp(buffer, "SCALE=C"))
     {
       celcius=1; 
-      printf(fp, "SCALE=C\n"); 
+      fprintf(fp, "SCALE=C\n"); 
     }
   else if(strcmp(buffer, "PERIOD=")) // TODO
     {

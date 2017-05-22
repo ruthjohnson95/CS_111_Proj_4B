@@ -62,7 +62,7 @@ void process_input(char* buffer)
   else
     {
       fprintf(stderr, "Error: input option not valid"); 
-      exit(1); 
+      //      exit(1); 
     }
 }
 
