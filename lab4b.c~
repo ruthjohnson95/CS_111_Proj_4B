@@ -58,17 +58,17 @@ void set_args(int argc, char **argv)
     switch(c)
       {
       case 's': // scale
-        if(optarg == "F")
+        if(optarg[0] == "F")
         {
           celcius=0;
         }
-        else if(optarg == "C")
+        else if(optarg[0] == "C")
         {
           celcius=1;
         }
         else
         {
-          fprintf(stderr, "Error: Invalid scale option\n");
+          fprintf(stderr, "Error: Invalid scale option - %s\n",optarg);
           exit(1);
         }
         break;
