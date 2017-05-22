@@ -38,7 +38,7 @@ int main()
   FILE *fp; 
 
   for (;;) {
-    fp = fopen("log.txt", "w");
+    fp = fopen("log.txt", "a");
     /* Calculate temperature reading */ 
     adcValue = mraa_aio_read(adc_a0);
     float R;
