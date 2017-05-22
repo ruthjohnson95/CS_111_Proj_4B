@@ -1,4 +1,4 @@
-#include "mraa.h"
+  #include "mraa.h"
 #include <math.h>
 #include <time.h> 
 #include <unistd.h>
@@ -78,7 +78,7 @@ int main()
 	printf("You typed: %s \n",buffer);
 
 	
-	if(!strcmp(buffer, "OFF"))
+	if(strcmp(buffer, "OFF") == 0)
 	  {
 	    fprintf(stderr, "...OFF\n");
 	    //	    fprintf(fp, "OFF\n");
