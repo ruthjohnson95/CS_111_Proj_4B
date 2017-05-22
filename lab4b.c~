@@ -58,11 +58,11 @@ void set_args(int argc, char **argv)
     switch(c)
       {
       case 's': // scale
-        if(optarg[0] == "F")
+        if(optarg[0] == 'F')
         {
           celcius=0;
         }
-        else if(optarg[0] == "C")
+        else if(optarg[0] == 'C')
         {
           celcius=1;
         }
