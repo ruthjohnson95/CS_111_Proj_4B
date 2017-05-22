@@ -139,15 +139,9 @@ int main ( int argc, char **argv )
 
   while(!mraa_gpio_read(gpio)){ // while button is not pressed
 
-    /* generate reports BEFORE getting input */
-
     /* button reading */
     int button_value = mraa_gpio_read(gpio);
 
-    waitFor(period); 
-
-    if(GO_FLAG)
-    {
     /* Calculate temperature reading */
     adcValue = mraa_aio_read(adc_a0);
     float R;
@@ -184,7 +178,13 @@ int main ( int argc, char **argv )
     }
       } // end of if reporting
 
-    } // end of if elapsed
+    unsigned int retTime = time(0) + period;   // Get finishing time.
+    while (time(0) < retTime && !mraa_gpio_read(gpio))
+      {
+        // only do polling and button input
+	/* get button state */
+	gpio = mraa_gpio_init(button_pin);
+	mraa_gpio_dir(gpio, MRAA_GPIO_IN);
 
     /* poll for input */
     ret = poll(&fds, 1, 0);
@@ -266,6 +266,8 @@ int main ( int argc, char **argv )
 	  }
 
       } // end of poll if
+    
+    } // end of only poll + button
 
   } // end of infinite for-loop
 
