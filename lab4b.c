@@ -10,7 +10,7 @@
 const int B = 4275;
 const int R0 = 100;
 const int button_pin = 3; 
-FILE *fp;
+int fp;
 int make_reports=1; 
 int celcius=1; // default: celcius; alt: F 
 
@@ -170,7 +170,7 @@ int main()
 
   mraa_aio_close(adc_a0);
 
-  fclose(fp);
+  close(fp);
 
   shutdown(); 
 
