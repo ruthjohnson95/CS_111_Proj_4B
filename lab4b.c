@@ -77,9 +77,9 @@ int main()
 	characters = getline(&buffer,&bufsize,stdin);
 	printf("You typed: %s \n",buffer);
 
-	fprintf(stderr, "strcmp: %d\n", strcmp(buffer, "OFF")); 
+	fprintf(stderr, "strcmp: %d\n", strcmp(buffer, "OFF\n")); 
 	
-	if(strcmp(buffer, "OFF") == 0)
+	if(strcmp(buffer, "OFF\n") == 0)
 	  {
 	    fprintf(stderr, "...OFF\n");
 	    //	    fprintf(fp, "OFF\n");
