@@ -30,7 +30,7 @@ void shutdown()
 
 void process_input(char* buffer)
 {
-  /*
+  
   if(strcmp(buffer, "OFF"))
     {
       fprintf(fp, "OFF\n"); 
@@ -67,7 +67,7 @@ void process_input(char* buffer)
       fprintf(stderr, "Error: input option not valid"); 
       //      exit(1); 
     }
-  */
+  return 
 }
 
 int main()
@@ -118,12 +118,44 @@ int main()
       {
 	characters = getline(&buffer,&bufsize,stdin);
 	printf("You typed: %s \n",buffer);
-	//process_input(buffer);
-	if(strcmp("START", buffer))
+	
+	if(strcmp(buffer, "OFF"))
 	  {
+	    fprintf(fp, "OFF\n");
+	    shutdown();
+	  }
+	else if(strcmp(buffer, "STOP"))
+	  {
+	    make_reports = 0;
+	    fprintf(fp,"STOP\n");
+	    fprintf(stderr, "...STOP\n");
+	  }
+	else if(strcmp("START", buffer))
+	  {
+	    make_reports = 1 ;
 	    fprintf(stderr, "...START\n"); 
 	  }
-      }
+	else if(strcmp(buffer, "SCALE=F"))
+	  {
+	    celcius=0;
+	    fprintf(fp, "SCALE=F\n");
+	  }
+	else if(strcmp(buffer, "SCALE=C"))
+	  {
+	    celcius=1;
+	    fprintf(fp, "SCALE=C\n");
+	  }
+	else if(strcmp(buffer, "PERIOD=")) // TODO
+	  {
+
+	  }
+	else
+	  {
+	    fprintf(stderr, "Error: input option not valid");
+	    //      exit(1);
+	  }
+
+      } // end of poll if 
 
     fp = fopen("log.txt", "a");
     /* Calculate temperature reading */ 
