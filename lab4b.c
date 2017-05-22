@@ -106,13 +106,14 @@ int main()
 	    fprintf(stderr, "...SCALE=C\n");
 	    fprintf(fp, "SCALE=C\n");
 	  }
-	else if(strcmp(buffer, "PERIOD=\n") == 0) // TODO
+	else if(strcmp(buffer, "PERIOD=", 7) == 0) // TODO
 	  {
+	    
 	    fprintf(fp, "...PERIOD=\n");
 	  }
 	else
 	  {
-	    fprintf(stderr, "Error: input option not valid");
+	    fprintf(stderr, "Error: input option not valid\n");
 	    exit(1);
 	  }
 
