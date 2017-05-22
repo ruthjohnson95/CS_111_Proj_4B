@@ -60,7 +60,7 @@ int main()
   fds.fd = 0; /* this is STDIN */
   fds.events = POLLIN;
 
-  fp = open("log.txt", O_CREAT | O_WRONLY | O_NONBLOCK);
+  fp = open(filename;, O_CREAT | O_WRONLY | O_NONBLOCK);
 
   while(!mraa_gpio_read(gpio)){ // while button is not pressed 
 
@@ -150,22 +150,25 @@ int main()
     
 
     /* print logs  */
+    if(make_reports)
+      {
+	fprintf(stdout, "%d:%d:%d ",hour, min, sec);
+	fprintf (stdout, "%0.2f\n", temp);
+	//    fprintf(stdout, "Gpio is %d\n", button_value);
+	
+	dprintf(fp, "%d:%d:%d ",hour, min, sec);
+	dprintf (fp, "%0.2f\n", temp);
+	//    fprintf(fp, "Gpio is %d\n", button_value);
 
-    fprintf (stdout, "%0.2f\n", temp);
-    //    fprintf(stdout, "Gpio is %d\n", button_value);
-    fprintf(stdout, "%d:%d:%d \n",hour, min, sec); 
+      } // end of if reporting
     
-    dprintf (fp, "%0.2f, temp");
-    //    fprintf(fp, "Gpio is %d\n", button_value);
-    dprintf(fp, "%d:%d:%d \n",hour, min, sec);
-
     /* Delay time */ 
     time(&start);
     do {
       time(&end);
       elapsed = difftime(end, start);
     } while(elapsed < period);
-  
+    
   } // end of infinite for-loop 
 
   mraa_aio_close(adc_a0);
