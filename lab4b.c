@@ -14,22 +14,23 @@ int main()
 {
   mraa_aio_context adc_a0;
   mraa_gpio_context gpio;
-
   uint16_t adcValue = 0;
   float adc_value_float = 0.0;
-
   int period = 1;
   char* filename = "log.txt"; 
-
   adc_a0 = mraa_aio_init(0);
 
   if (adc_a0 == NULL) {
     return 1;
   }
 
+  char* buffer;
+  size_t bufsize = 32;
+  size_t characters; 
+  buffer = (char *)malloc(bufsize * sizeof(char));
+
   gpio = mraa_gpio_init(button_pin); 
   mraa_gpio_dir(gpio, MRAA_GPIO_IN);
-
   time_t curtime;
   struct tm *loctime;
 
@@ -39,6 +40,10 @@ int main()
   double elapsed;
 
   for (;;) {
+
+    /* read input */
+    characters = getline(&buffer,&bufsize,stdin);
+    printf("You typed: '%s'\n",buffer);
 
     fp = fopen("log.txt", "a");
     /* Calculate temperature reading */ 
