@@ -2,6 +2,9 @@
 #include <math.h>
 #include <time.h> 
 #include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 const int B = 4275;
 const int R0 = 100;
@@ -33,7 +36,7 @@ int main()
   struct tm *loctime;
 
   FILE *fp; 
-  fp = fopen(filename); 
+  fp = fopen(filename, "w"); 
 
   for (;;) {
     
