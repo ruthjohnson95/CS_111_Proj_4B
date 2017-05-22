@@ -75,10 +75,10 @@ int main()
     if(fds.revents & POLLIN)
       {
 	characters = getline(&buffer,&bufsize,stdin);
-	//printf("You typed: %s \n",buffer);
+	printf("You typed: %s \n",buffer);
 
 	
-	if(strcmp(buffer, "OFF"))
+	if(strcmp(&buffer, "OFF"))
 	  {
 	    fprintf(stderr, "...OFF\n");
 	    //	    fprintf(fp, "OFF\n");
