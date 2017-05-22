@@ -80,13 +80,13 @@ int main()
 	if(strcmp(buffer, "OFF\n") == 0)
 	  {
 	    fprintf(stderr, "...OFF\n");
-    	    fprintf(fp, "OFF\n");
+	    //    	    fprintf(fp, "OFF\n");
 	    shutdown();
 	  }        
 	else if(strcmp(buffer, "STOP\n") == 0)
 	  {
 	    make_reports = 0;
-	    fprintf(fp,"STOP\n");
+	    //	    fprintf(fp,"STOP\n");
 	    fprintf(stderr, "...STOP\n");
 	  }
 	else if(strcmp("START\n", buffer) == 0)
@@ -98,13 +98,13 @@ int main()
 	  {
 	    celcius=0;
 	    fprintf(stderr, "...SCALE=F\n"); 
-	    fprintf(fp, "SCALE=F\n");
+	    //	    fprintf(fp, "SCALE=F\n");
 	  }
 	else if(strcmp(buffer, "SCALE=C\n") == 0)
 	  {
 	    celcius=1;
 	    fprintf(stderr, "...SCALE=C\n");
-	    fprintf(fp, "SCALE=C\n");
+	    //	    fprintf(fp, "SCALE=C\n");
 	  }
 	else if( strstr(buffer, "PERIOD=") != NULL ) 
 	  {
@@ -112,7 +112,7 @@ int main()
 
 	    period = atoi(buffer+7);
 	    fprintf(stderr, "...PERIOD=%d\n", period);
-	    fprintf(fp, "...PERIOD=\n");
+	    //	    fprintf(fp, "...PERIOD=\n");
 	  }
 	else
 	  {
