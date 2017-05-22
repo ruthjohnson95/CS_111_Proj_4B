@@ -56,10 +56,12 @@ int main()
     else
       printf("Error\n");
 
-
-    /* read input */
-    characters = getline(&buffer,&bufsize,stdin);
-    printf("You typed: %s \n",buffer);
+    /* read input if there */
+    if(fds[0].revents & POLLIN)
+      {
+	characters = getline(&buffer,&bufsize,stdin);
+	printf("You typed: %s \n",buffer);
+      }
 
     fp = fopen("log.txt", "a");
     /* Calculate temperature reading */ 
