@@ -11,3 +11,4 @@ check:
 clean:
 
 dist:
+	tar -czvf lab4b-704275412.tar.gz lab4b.c README Makefile
