@@ -1,4 +1,6 @@
-# CS_111_Proj_4B
+# NAME: Ruth Johnson
+# EMAIL: ruthjohnson@ucla.edu
+# ID: 704275412
 
 Resources Used:
 https://navinbhaskar.wordpress.com/2016/07/05/cc-on-intel-edisongalileo-part5temperature-sensor/

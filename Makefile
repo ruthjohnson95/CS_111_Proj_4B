@@ -6,3 +6,8 @@ CC=gcc
 
 default: lab4b.o
 	$(CC) -lmraa -lm  -o lab4b lab4b.c
+check:
+
+clean:
+
+dist:

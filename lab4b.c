@@ -32,7 +32,6 @@ void shutdown()
   dprintf(fp, "%d:%d:%d SHUTDOWN\n",hour, min, sec);
   exit(0);
 }
-
 void set_args(int argc, char **argv)
 {
   while(1){
