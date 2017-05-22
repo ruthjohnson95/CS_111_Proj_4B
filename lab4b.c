@@ -36,7 +36,7 @@ int main()
   struct tm *loctime;
 
   FILE *fp; 
-  fp = fopen(filename, "w"); 
+  fp = fopen("log.txt", "w"); 
 
   for (;;) {
     
