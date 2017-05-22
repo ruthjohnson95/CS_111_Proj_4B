@@ -1,4 +1,4 @@
-  #include "mraa.h"
+#include "mraa.h"
 #include <math.h>
 #include <time.h>
 #include <unistd.h>
@@ -6,14 +6,18 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/poll.h>
+#include <getopt.h>
 
 const int B = 4275;
 const int R0 = 100;
 const int button_pin = 3;
 int fp;
 int make_reports=1;
+
 int celcius=0; // default: celcius; alt: F
 int logflag=0;
+int period = 1;
+char* filename;
 
 void shutdown()
 {
@@ -29,21 +33,83 @@ void shutdown()
   exit(0);
 }
 
-int main()
+void set_args(int argc, char **argv)
+{
+  while(1){
+
+    static struct option args[] = {
+      {"scale", required_argument, 0, 's'},
+      {"period", required_argument, 0, 'p'},
+      {"log", required_argument,0, 'l'}
+    };
+
+    int option_index=0;
+    int c;
+
+    // get options from command line
+    c = getopt_long(argc, argv, "spl:p:s:l",
+                    args, &option_index);
+
+    /* Detect the end of the options. */
+    if (c == -1)
+      break;
+
+    int i;
+
+    switch(c)
+      {
+      case 's': // scale
+        if(optarg == "F")
+        {
+          celcius=0;
+        }
+        else if(optarg == "C")
+        {
+          celcius=1;
+        }
+        else
+        {
+          fprintf(stderr, "Error: Invalid scale option\n");
+          exit(1);
+        }
+        break;
+
+      case 'p': // period
+        period=atoi(optarg);
+        break;
+
+      case 'l': // log
+        filename = optarg;
+        logflag = 1;
+        break;
+
+      default: // wrong command-line parameters
+        fprintf(stderr, "Error: Not valid argument\n");
+        exit(1);
+
+      }
+
+  }
+  // end of command-line while()
+
+}
+
+int main ( int argc, char **argv )
 {
   mraa_aio_context adc_a0;
   mraa_gpio_context gpio;
   uint16_t adcValue = 0;
   float adc_value_float = 0.0;
-  int period = 1;
-  char* filename = "log.txt";
   adc_a0 = mraa_aio_init(0);
 
   int FLAG = 1;
-  
+
   if (adc_a0 == NULL) {
     return 1;
   }
+
+  /* set the command line args */
+  set_args(argc, argv);
 
   char* buffer;
   size_t bufsize = 32;
