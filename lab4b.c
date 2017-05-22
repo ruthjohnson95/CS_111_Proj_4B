@@ -77,6 +77,7 @@ int main()
 	characters = getline(&buffer,&bufsize,stdin);
 	printf("You typed: %s \n",buffer);
 
+	fprintf(stderr, "strcmp: %d\n", strcmp(buffer, "OFF")); 
 	
 	if(strcmp(buffer, "OFF") == 0)
 	  {
@@ -139,7 +140,7 @@ int main()
     
 
     /* print logs  */
-    
+    /*
     fprintf (stdout, "The temperature is %0.2f degree Celcius\n", temp);
     fprintf(stdout, "Gpio is %d\n", button_value);
     fprintf(stdout, "%d:%d:%d \n",hour, min, sec); 
@@ -149,7 +150,8 @@ int main()
     fprintf(fp, "Gpio is %d\n", button_value);
     fprintf(fp, "%d:%d:%d \n",hour, min, sec);
     fclose(fp);
-    
+    */ 
+
     /* Delay time */ 
     time(&start);
     do {
