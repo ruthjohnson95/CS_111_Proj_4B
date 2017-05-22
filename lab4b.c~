@@ -13,6 +13,7 @@ const int button_pin = 3;
 int fp;
 int make_reports=1; 
 int celcius=1; // default: celcius; alt: F 
+int logflag=0; 
 
 void shutdown()
 {
@@ -60,18 +61,15 @@ int main()
   fds.fd = 0; /* this is STDIN */
   fds.events = POLLIN;
 
-  fp = open(filename, O_CREAT | O_WRONLY | O_NONBLOCK);
+  if(logflag)
+    {
+      fp = open(filename, O_CREAT | O_WRONLY | O_NONBLOCK);
+    }
 
   while(!mraa_gpio_read(gpio)){ // while button is not pressed 
 
     /* poll for input */ 
     ret = poll(&fds, 1, 0);
-    if(ret == 1)
-      printf("Yep\n");
-    else if(ret == 0)
-      printf("No\n");
-    else
-      printf("Error\n");
 
     /* read input if there */
     if(fds.revents & POLLIN)
@@ -82,31 +80,47 @@ int main()
 	if(strcmp(buffer, "OFF\n") == 0)
 	  {
 	    fprintf(stderr, "...OFF\n");
-       	    dprintf(fp, "OFF\n");
+	    if(logflag)
+	      {
+		dprintf(fp, "OFF\n");
+	      }
 	    shutdown();
 	  }        
 	else if(strcmp(buffer, "STOP\n") == 0)
 	  {
 	    make_reports = 0;
-	    dprintf(fp,"STOP\n");
+	    if(logflag)
+	      {
+		dprintf(fp,"STOP\n");
+	      }
 	    fprintf(stderr, "...STOP\n");
 	  }
 	else if(strcmp("START\n", buffer) == 0)
 	  {
 	    make_reports = 1 ;
 	    fprintf(stderr, "...START\n"); 
+	    if(logflag)
+	      {
+		dprintf(fp, "START\n"); 
+	      }
 	  }
 	else if(strcmp(buffer, "SCALE=F\n") == 0)
 	  {
 	    celcius=0;
-	    fprintf(stderr, "...SCALE=F\n"); 
-	    dprintf(fp, "SCALE=F\n");
+	    fprintf(stderr, "...SCALE=F\n");
+	    if(logflag)
+	      {
+		dprintf(fp, "SCALE=F\n");
+	      }
 	  }
 	else if(strcmp(buffer, "SCALE=C\n") == 0)
 	  {
 	    celcius=1;
 	    fprintf(stderr, "...SCALE=C\n");
-	    dprintf(fp, "SCALE=C\n");
+	    if(logflag)
+	      {
+		dprintf(fp, "SCALE=C\n");
+	      }
 	  }
 	else if( strstr(buffer, "PERIOD=") != NULL ) 
 	  {
@@ -114,7 +128,10 @@ int main()
 
 	    period = atoi(buffer+7);
 	    fprintf(stderr, "...PERIOD=%d\n", period);
-       	    dprintf(fp, "...PERIOD=\n");
+	    if(logflag)
+	      {
+		dprintf(fp, "...PERIOD=\n");
+	      }
 	  }
 	else
 	  {
@@ -155,11 +172,12 @@ int main()
 	fprintf(stdout, "%d:%d:%d ",hour, min, sec);
 	fprintf (stdout, "%0.2f\n", temp);
 	//    fprintf(stdout, "Gpio is %d\n", button_value);
-	
-	dprintf(fp, "%d:%d:%d ",hour, min, sec);
-	dprintf (fp, "%0.2f\n", temp);
-	//    fprintf(fp, "Gpio is %d\n", button_value);
-
+	if(logflag)
+	  {
+	    dprintf(fp, "%d:%d:%d ",hour, min, sec);
+	    dprintf (fp, "%0.2f\n", temp);
+	    //    fprintf(fp, "Gpio is %d\n", button_value);
+	  }
       } // end of if reporting
     
     /* Delay time */ 
@@ -173,7 +191,10 @@ int main()
 
   mraa_aio_close(adc_a0);
 
-  close(fp);
+  if(logflag)
+    {
+      close(fp);
+    }
 
   shutdown(); 
 
