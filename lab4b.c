@@ -19,6 +19,14 @@ int logflag=0;
 int period = 1;
 char* filename;
 
+int GO_FLAG=1; 
+
+void waitFor(unsigned int secs) {
+  unsigned int retTime = time(0) + secs;   // Get finishing time.
+  while (time(0) < retTime);               // Loop until it arrives.
+  GO_FLAG=1; 
+}
+
 void shutdown()
 {
   // log time and SHUTDOWN
@@ -29,7 +37,7 @@ void shutdown()
   int min = tm_struct -> tm_min;
   int sec = tm_struct -> tm_sec;
 
-  dprintf(fp, "%d:%d:%d SHUTDOWN\n",hour, min, sec);
+  dprintf(fp, "%02d:%02d:%02d SHUTDOWN\n",hour, min, sec);
   exit(0);
 }
 void set_args(int argc, char **argv)
@@ -118,10 +126,6 @@ int main ( int argc, char **argv )
   gpio = mraa_gpio_init(button_pin);
   mraa_gpio_dir(gpio, MRAA_GPIO_IN);
 
-  time_t curtime;
-
-  time_t start, end;
-  double elapsed;
 
   struct pollfd fds;
   int ret;
@@ -140,9 +144,7 @@ int main ( int argc, char **argv )
     /* button reading */
     int button_value = mraa_gpio_read(gpio);
 
-    time(&start);
-
-    if(elapsed >= period || FLAG )
+    if(GO_FLAG)
     {
     /* Calculate temperature reading */
     adcValue = mraa_aio_read(adc_a0);
@@ -181,15 +183,6 @@ int main ( int argc, char **argv )
       } // end of if reporting
 
     } // end of if elapsed
-
-    time(&end);
-    elapsed = difftime(end, start);
-
-    if (elapsed > period) {
-      time(&start);
-    }
-
-    //      FLAG = 0;
 
     /* poll for input */
     ret = poll(&fds, 1, 0);
