@@ -60,6 +60,8 @@ int main()
   fds.fd = 0; /* this is STDIN */
   fds.events = POLLIN;
 
+  fp = open("log.txt", O_CREAT | O_WRONLY | O_NONBLOCKING);
+
   while(!mraa_gpio_read(gpio)){ // while button is not pressed 
 
     /* poll for input */ 
@@ -80,13 +82,13 @@ int main()
 	if(strcmp(buffer, "OFF\n") == 0)
 	  {
 	    fprintf(stderr, "...OFF\n");
-	    //    	    fprintf(fp, "OFF\n");
+       	    fprintf(fp, "OFF\n");
 	    shutdown();
 	  }        
 	else if(strcmp(buffer, "STOP\n") == 0)
 	  {
 	    make_reports = 0;
-	    //	    fprintf(fp,"STOP\n");
+	    fprintf(fp,"STOP\n");
 	    fprintf(stderr, "...STOP\n");
 	  }
 	else if(strcmp("START\n", buffer) == 0)
@@ -122,8 +124,6 @@ int main()
 
       } // end of poll if 
 
-    fp = fopen("log.txt", "a");
-
     /* Calculate temperature reading */ 
     adcValue = mraa_aio_read(adc_a0);
     float R;
@@ -151,16 +151,13 @@ int main()
 
     /* print logs  */
 
-    fprintf (stdout, "The temperature is %0.2f degree Celcius\n", temp);
-    fprintf(stdout, "Gpio is %d\n", button_value);
+    fprintf (stdout, "%0.2f\n", temp);
+    //    fprintf(stdout, "Gpio is %d\n", button_value);
     fprintf(stdout, "%d:%d:%d \n",hour, min, sec); 
     
-    fprintf(fp, "Testing...\n");
-    fprintf (fp, "The temperature is %0.2f degree Celcius\n", temp);
-    fprintf(fp, "Gpio is %d\n", button_value);
+    fprintf (fp, "%0.2f, temp");
+    //    fprintf(fp, "Gpio is %d\n", button_value);
     fprintf(fp, "%d:%d:%d \n",hour, min, sec);
-    fclose(fp);
-
 
     /* Delay time */ 
     time(&start);
@@ -172,6 +169,8 @@ int main()
   } // end of infinite for-loop 
 
   mraa_aio_close(adc_a0);
+
+  fclose(fp);
 
   shutdown(); 
 
