@@ -37,41 +37,48 @@ int main()
 
   FILE *fp; 
 
+  time_t start, end;
+  double elapsed;
+
   for (;;) {
-    fp = fopen("log.txt", "a");
-    /* Calculate temperature reading */ 
-    adcValue = mraa_aio_read(adc_a0);
-    float R;
-    R = 1023.0/((float)adcValue)-1.0;
-    R = 100000.0*R;
-    float temp  = 1.0/(log(R/100000.0)/B+1/298.15)-273.15;
+    time(&start); 
+    
+    do{
+      fp = fopen("log.txt", "a");
+      /* Calculate temperature reading */ 
+      adcValue = mraa_aio_read(adc_a0);
+      float R;
+      R = 1023.0/((float)adcValue)-1.0;
+      R = 100000.0*R;
+      float temp  = 1.0/(log(R/100000.0)/B+1/298.15)-273.15;
+      
+      /* button reading */ 
+      int button_value = mraa_gpio_read(gpio); 
 
-    /* button reading */ 
-    int button_value = mraa_gpio_read(gpio); 
-
-    /* Local Time */ 
-    curtime = time (NULL);
-    struct tm *tm_struct = localtime (&curtime);
-    int hour = tm_struct -> tm_hour; 
-    int min = tm_struct -> tm_min; 
-    int sec = tm_struct -> tm_sec; 
-
-    /* print logs  */
-    /*
-    fprintf (stdout, "The temperature is %0.2f degree Celcius\n", temp);
-    fprintf(stdout, "Gpio is %d\n", button_value);
-    fprintf(stdout, "%d:%d:%d \n",hour, min, sec); 
-    */
-    fprintf(fp, "Testing...\n");
-    fprintf (fp, "The temperature is %0.2f degree Celcius\n", temp);
-    fprintf(fp, "Gpio is %d\n", button_value);
-    fprintf(fp, "%d:%d:%d \n",hour, min, sec);
-    fclose(fp);
-
-    /* delay a certain amount of time */ 
-    sleep(period);
-
-
+      /* Local Time */ 
+      curtime = time (NULL);
+      struct tm *tm_struct = localtime (&curtime);
+      int hour = tm_struct -> tm_hour; 
+      int min = tm_struct -> tm_min; 
+      int sec = tm_struct -> tm_sec; 
+      
+      /* print logs  */
+      
+      fprintf (stdout, "The temperature is %0.2f degree Celcius\n", temp);
+      fprintf(stdout, "Gpio is %d\n", button_value);
+      fprintf(stdout, "%d:%d:%d \n",hour, min, sec); 
+    
+      fprintf(fp, "Testing...\n");
+      fprintf (fp, "The temperature is %0.2f degree Celcius\n", temp);
+      fprintf(fp, "Gpio is %d\n", button_value);
+      fprintf(fp, "%d:%d:%d \n",hour, min, sec);
+      fclose(fp);
+    
+      elapsed = difftime(end, start);
+    }while(elapsed < 1);      
+    
+    elapsed = 0; 
+    
   }
 
   mraa_aio_close(adc_a0);
