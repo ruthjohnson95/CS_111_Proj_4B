@@ -7,7 +7,7 @@ const int R0 = 100;
 int main()
 {
   mraa_aio_context adc_a0;
-  uint16_t adc_value = 0;
+  uint16_t adcValue = 0;
   float adc_value_float = 0.0;
   adc_a0 = mraa_aio_init(0);
   if (adc_a0 == NULL) {
