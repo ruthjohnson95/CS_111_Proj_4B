@@ -75,23 +75,22 @@ int main()
     if(fds.revents & POLLIN)
       {
 	characters = getline(&buffer,&bufsize,stdin);
-	printf("You typed: %s \n",buffer);
+	//	printf("You typed: %s \n",buffer);
 
-	fprintf(stderr, "strcmp: %d\n", strcmp(buffer, "OFF\n")); 
-	
 	if(strcmp(buffer, "OFF\n") == 0)
 	  {
 	    fprintf(stderr, "...OFF\n");
-	    //	    fprintf(fp, "OFF\n");
-	    //	    shutdown();
+    	    fprintf(fp, "OFF\n");
+	    shutdown();
 	  }
-	/* 
+        
 	else if(strcmp(buffer, "STOP"))
 	  {
 	    make_reports = 0;
 	    fprintf(fp,"STOP\n");
 	    fprintf(stderr, "...STOP\n");
 	  }
+	/* 
 	else if(strcmp("START", buffer))
 	  {
 	    make_reports = 1 ;
