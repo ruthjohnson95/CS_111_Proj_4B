@@ -14,7 +14,15 @@ const int button_pin = 3;
 void shutdown()
 {
   // log time and SHUTDOWN 
-
+  time_t curtime;
+  curtime = time (NULL);
+  struct tm *tm_struct = localtime (&curtime);
+  int hour = tm_struct -> tm_hour;
+  int min = tm_struct -> tm_min;
+  int sec = tm_struct -> tm_sec;
+  
+  fprintf(stdout, "%d:%d:%d SHUTDOWN\n",hour, min, sec);
+  exit(0); 
 }
 
 void process_input(char* buffer)
@@ -84,7 +92,7 @@ int main()
   fds.fd = 0; /* this is STDIN */
   fds.events = POLLIN;
 
-  for (;;) {
+  while(!mraa_gpio_read(gpio)){ // while button is not pressed 
 
     /* poll for input */ 
     ret = poll(&fds, 1, 0);
@@ -145,5 +153,8 @@ int main()
   } // end of infinite for-loop 
 
   mraa_aio_close(adc_a0);
+
+  shutdown(); 
+
   return MRAA_SUCCESS;
 }

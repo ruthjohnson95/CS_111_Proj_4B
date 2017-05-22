@@ -72,8 +72,7 @@ int main()
   gpio = mraa_gpio_init(button_pin); 
   mraa_gpio_dir(gpio, MRAA_GPIO_IN);
 
-  curtime = time (NULL);
-  loc_time = localtime (&curtime);
+  time_t curtime; 
   
   FILE *fp; 
 
@@ -116,13 +115,13 @@ int main()
     int button_value = mraa_gpio_read(gpio); 
     
     /* Local Time */ 
-    /*
+    
     curtime = time (NULL);
     struct tm *tm_struct = localtime (&curtime);
     int hour = tm_struct -> tm_hour; 
     int min = tm_struct -> tm_min; 
     int sec = tm_struct -> tm_sec; 
-    */
+    
 
     /* print logs  */
     
