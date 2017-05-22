@@ -40,13 +40,16 @@ int main()
 
     /* Local Time */ 
     curtime = time (NULL);
-    loctime = localtime (&curtime);
+    struct tm *tm_struct = localtime (&curtime);
+    int hour = tm_struct -> tm_hour; 
+    int min = tm_struct -> tm_min; 
+    int sec = tm_struct -> tm_sec; 
 
 
     /* print logs  */
     printf ("The temperature is %0.2f degree Celcius\n", temp);
     fprintf(stdout, "Gpio is %d\n", button_value);
-    fprintf(stdout, "%s \n",(asctime (loctime))); 
+    fprintf(stdout, "%d:%d:%d \n",hour, min, sec); 
 
   }
   mraa_aio_close(adc_a0);
