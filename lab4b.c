@@ -77,6 +77,9 @@ int main()
 	characters = getline(&buffer,&bufsize,stdin);
 	//	printf("You typed: %s \n",buffer);
 
+	char* temp = strstr(buffer, "PERIOD=");
+	fprintf(stderr, "%s\n", &temp) ;
+
 	if(strcmp(buffer, "OFF\n") == 0)
 	  {
 	    fprintf(stderr, "...OFF\n");

@@ -106,8 +106,10 @@ int main()
 	    fprintf(stderr, "...SCALE=C\n");
 	    fprintf(fp, "SCALE=C\n");
 	  }
-	else if(strcmp(buffer, "PERIOD=", 7) == 0) // TODO
+	else if( strstr(buffer, "PERIOD=") != NULL) 
 	  {
+	    //int index = strchr(buffer,"=")-buffer;
+	    
 	    
 	    fprintf(fp, "...PERIOD=\n");
 	  }
