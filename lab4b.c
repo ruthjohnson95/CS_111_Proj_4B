@@ -77,6 +77,7 @@ int main()
 	characters = getline(&buffer,&bufsize,stdin);
 	printf("You typed: %s \n",buffer);
 
+	/*
 	if(strcmp(buffer, "OFF"))
 	  {
 	    fprintf(fp, "OFF\n");
@@ -112,7 +113,7 @@ int main()
 	    fprintf(stderr, "Error: input option not valid");
 	    //      exit(1);
 	  }
-
+	*/ 
       } // end of poll if 
 
     fp = fopen("log.txt", "a");
