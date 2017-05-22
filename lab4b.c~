@@ -15,8 +15,6 @@ int main()
   mraa_aio_context adc_a0;
   mraa_gpio_context gpio;
 
-  time_t begin,end;
-
   uint16_t adcValue = 0;
   float adc_value_float = 0.0;
 
