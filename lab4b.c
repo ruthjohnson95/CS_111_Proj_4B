@@ -3,6 +3,8 @@
 
 const int B = 4275;
 const int R0 = 100000;
+const int pinTempSensor = A0; 
+
 
 int main()
 {
@@ -14,6 +16,7 @@ int main()
     return 1;
   }
   for (;;) {
+    int a = analogRead(pinTempSensor);
     adc_value = mraa_aio_read(adc_a0);
 
     float R = 1023.0/adc_value-1.0;
