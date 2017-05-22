@@ -28,48 +28,6 @@ void shutdown()
   exit(0); 
 }
 
-void process_input(char* buffer)
-{
-  
-  if(strcmp(buffer, "OFF"))
-    {
-      fprintf(fp, "OFF\n"); 
-      shutdown(); 
-    }
-  else if(strcmp(buffer, "STOP"))
-    {
-      make_reports = 0; 
-      fprintf(fp,"STOP\n"); 
-    }
-  else if(strcmp(buffer, "START"))
-    {
-      make_reports = 1 ; 
-      fprintf(stderr,"START\n");
-      fprintf(fp,"START\n"); 
-      
-  }
-  else if(strcmp(buffer, "SCALE=F"))
-    {
-      celcius=0;
-      fprintf(fp, "SCALE=F\n");
-    }
-  else if(strcmp(buffer, "SCALE=C"))
-    {
-      celcius=1; 
-      fprintf(fp, "SCALE=C\n"); 
-    }
-  else if(strcmp(buffer, "PERIOD=")) // TODO
-    {
-
-    }
-  else
-    {
-      fprintf(stderr, "Error: input option not valid"); 
-      //      exit(1); 
-    }
-  return 
-}
-
 int main()
 {
   mraa_aio_context adc_a0;
