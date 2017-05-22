@@ -75,14 +75,16 @@ int main()
     if(fds.revents & POLLIN)
       {
 	characters = getline(&buffer,&bufsize,stdin);
-	printf("You typed: %s \n",buffer);
+	//printf("You typed: %s \n",buffer);
 
-	/*
+	
 	if(strcmp(buffer, "OFF"))
 	  {
+	    fprintf(stderr, "...OFF\n");
 	    fprintf(fp, "OFF\n");
 	    //	    shutdown();
 	  }
+	/* 
 	else if(strcmp(buffer, "STOP"))
 	  {
 	    make_reports = 0;
@@ -159,7 +161,7 @@ int main()
 
   mraa_aio_close(adc_a0);
 
-  //  shutdown(); 
+  shutdown(); 
 
   return MRAA_SUCCESS;
 }

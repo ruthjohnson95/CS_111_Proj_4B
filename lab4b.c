@@ -81,7 +81,7 @@ int main()
 	if(strcmp(buffer, "OFF"))
 	  {
 	    fprintf(stderr, "...OFF\n");
-	    fprintf(fp, "OFF\n");
+	    //	    fprintf(fp, "OFF\n");
 	    //	    shutdown();
 	  }
 	/* 
