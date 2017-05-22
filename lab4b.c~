@@ -58,10 +58,11 @@ int main()
     int sec = tm_struct -> tm_sec; 
 
     /* print logs  */
+    /*
     fprintf (stdout, "The temperature is %0.2f degree Celcius\n", temp);
     fprintf(stdout, "Gpio is %d\n", button_value);
     fprintf(stdout, "%d:%d:%d \n",hour, min, sec); 
-
+    */
     fprintf(fp, "Testing...\n");
     fprintf (fp, "The temperature is %0.2f degree Celcius\n", temp);
     fprintf(fp, "Gpio is %d\n", button_value);
