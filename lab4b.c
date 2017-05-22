@@ -151,7 +151,6 @@ int main()
 
     if(elapsed >= period || FLAG )
     {
-    FLAG = 0;
     /* Calculate temperature reading */
     adcValue = mraa_aio_read(adc_a0);
     float R;
@@ -190,12 +189,14 @@ int main()
 
     } // end of if elapsed
 
-      time(&end);
-      elapsed = difftime(end, start);
+    time(&end);
+    elapsed = difftime(end, start);
 
-      if (elapsed > period) {
-        time(&start);
-      }
+    if (elapsed > period) {
+      time(&start);
+    }
+
+      FLAG = 0;
 
   } // end of infinite for-loop
 
