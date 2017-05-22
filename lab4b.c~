@@ -82,28 +82,28 @@ int main()
 	    fprintf(stderr, "...OFF\n");
     	    fprintf(fp, "OFF\n");
 	    shutdown();
-	  }
-        
-	else if(strcmp(buffer, "STOP"))
+	  }        
+	else if(strcmp(buffer, "STOP\n") == 0)
 	  {
 	    make_reports = 0;
 	    fprintf(fp,"STOP\n");
 	    fprintf(stderr, "...STOP\n");
 	  }
-	/* 
-	else if(strcmp("START", buffer))
+	else if(strcmp("START\n", buffer) == 0)
 	  {
 	    make_reports = 1 ;
 	    fprintf(stderr, "...START\n"); 
 	  }
-	else if(strcmp(buffer, "SCALE=F"))
+	else if(strcmp(buffer, "SCALE=F\n") == 0)
 	  {
 	    celcius=0;
+	    fprintf(stderr, "...SCALE=F\n"); 
 	    fprintf(fp, "SCALE=F\n");
 	  }
-	else if(strcmp(buffer, "SCALE=C"))
+	else if(strcmp(buffer, "SCALE=C\n") == 0)
 	  {
 	    celcius=1;
+	    fprintf(stderr, "...SCALE=C\n");
 	    fprintf(fp, "SCALE=C\n");
 	  }
 	else if(strcmp(buffer, "PERIOD=")) // TODO
@@ -113,7 +113,7 @@ int main()
 	else
 	  {
 	    fprintf(stderr, "Error: input option not valid");
-	    //      exit(1);
+	    exit(1);
 	  }
 	*/ 
       } // end of poll if 
