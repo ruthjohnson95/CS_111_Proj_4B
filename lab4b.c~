@@ -261,7 +261,7 @@ int main ( int argc, char **argv )
 	    //	    fprintf(stderr, "...PERIOD=%d\n", period);
 	    if(logflag)
 	      {
-		dprintf(fp, "...PERIOD=\n");
+		dprintf(fp, "PERIOD=%d\n", period);
 	      }
 	  }
 	else

@@ -169,12 +169,12 @@ int main ( int argc, char **argv )
     /* print logs  */
     if(make_reports)
       {
-  fprintf(stdout, "%d:%d:%d ",hour, min, sec);
+  fprintf(stdout, "%02d:%02d:%02d ",hour, min, sec);
   fprintf (stdout, "%0.1f\n", temp);
   //    fprintf(stdout, "Gpio is %d\n", button_value);
   if(logflag)
     {
-      dprintf(fp, "%d:%d:%d ",hour, min, sec);
+      dprintf(fp, "%02d:%02d:%02d ",hour, min, sec);
       dprintf (fp, "%0.1f\n", temp);
       //    fprintf(fp, "Gpio is %d\n", button_value);
     }
