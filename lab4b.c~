@@ -161,7 +161,7 @@ int main ( int argc, char **argv )
 
 
     /* Local Time */
-
+    time_t curtime;
     curtime = time (NULL);
     struct tm *tm_struct = localtime (&curtime);
     int hour = tm_struct -> tm_hour;

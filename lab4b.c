@@ -144,6 +144,8 @@ int main ( int argc, char **argv )
     /* button reading */
     int button_value = mraa_gpio_read(gpio);
 
+    waitFor(period); 
+
     if(GO_FLAG)
     {
     /* Calculate temperature reading */
