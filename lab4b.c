@@ -11,6 +11,39 @@ const int B = 4275;
 const int R0 = 100;
 const int button_pin = 3; 
 
+void process_input(char* buffer)
+{
+  if(strcmp(buffer, "OFF"))
+    {
+      
+    }
+  else if(strcmp(buffer, "STOP"))
+    {
+
+    }
+  else if(strcmp(buffer, "START"))
+    {
+
+    }
+  else if(strcmp(buffer, "SCALE=F"))
+    {
+
+    }
+  else if(strcmp(buffer, "SCALE=C"))
+    {
+
+    }
+  else if(strcmp(buffer, "PERIOD=")) // TODO
+    {
+
+    }
+  else
+    {
+      fprintf(stderr, "Error: input option not valid"); 
+      exit(1); 
+    }
+}
+
 int main()
 {
   mraa_aio_context adc_a0;
@@ -61,6 +94,7 @@ int main()
       {
 	characters = getline(&buffer,&bufsize,stdin);
 	printf("You typed: %s \n",buffer);
+	process_input(buffer);
       }
 
     fp = fopen("log.txt", "a");

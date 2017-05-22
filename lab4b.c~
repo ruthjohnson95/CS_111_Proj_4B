@@ -57,7 +57,7 @@ int main()
       printf("Error\n");
 
     /* read input if there */
-    if(fds[0].revents & POLLIN)
+    if(fds.revents & POLLIN)
       {
 	characters = getline(&buffer,&bufsize,stdin);
 	printf("You typed: %s \n",buffer);
