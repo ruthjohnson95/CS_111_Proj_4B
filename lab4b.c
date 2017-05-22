@@ -106,9 +106,9 @@ int main()
 	    fprintf(stderr, "...SCALE=C\n");
 	    fprintf(fp, "SCALE=C\n");
 	  }
-	else if(strcmp(buffer, "PERIOD=")) // TODO
+	else if(strcmp(buffer, "PERIOD=\n") == 0) // TODO
 	  {
-
+	    fprintf(fp, "...PERIOD=\n");
 	  }
 	else
 	  {

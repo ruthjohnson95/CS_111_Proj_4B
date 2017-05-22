@@ -115,7 +115,7 @@ int main()
 	    fprintf(stderr, "Error: input option not valid");
 	    exit(1);
 	  }
-	*/ 
+
       } // end of poll if 
 
     fp = fopen("log.txt", "a");
