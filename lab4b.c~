@@ -118,7 +118,11 @@ int main()
       {
 	characters = getline(&buffer,&bufsize,stdin);
 	printf("You typed: %s \n",buffer);
-	process_input(buffer);
+	//process_input(buffer);
+	if(strcmp("START", buffer))
+	  {
+	    fprintf(stderr, "...START\n"); 
+	  }
       }
 
     fp = fopen("log.txt", "a");
