@@ -123,12 +123,19 @@ int main()
       } // end of poll if 
 
     fp = fopen("log.txt", "a");
+
     /* Calculate temperature reading */ 
     adcValue = mraa_aio_read(adc_a0);
     float R;
     R = 1023.0/((float)adcValue)-1.0;
     R = 100000.0*R;
     float temp  = 1.0/(log(R/100000.0)/B+1/298.15)-273.15;
+
+    /* Farenheit */ 
+    if(celcius == 0)
+      {
+	temp = (temp*(9.0/5.0)) + 32); 
+      }
     
     /* button reading */ 
     int button_value = mraa_gpio_read(gpio); 
@@ -143,7 +150,7 @@ int main()
     
 
     /* print logs  */
-    /*
+
     fprintf (stdout, "The temperature is %0.2f degree Celcius\n", temp);
     fprintf(stdout, "Gpio is %d\n", button_value);
     fprintf(stdout, "%d:%d:%d \n",hour, min, sec); 
@@ -153,7 +160,7 @@ int main()
     fprintf(fp, "Gpio is %d\n", button_value);
     fprintf(fp, "%d:%d:%d \n",hour, min, sec);
     fclose(fp);
-    */ 
+
 
     /* Delay time */ 
     time(&start);

@@ -134,7 +134,7 @@ int main()
     /* Farenheit */ 
     if(celcius == 0)
       {
-	temp = (temp*(9.0/5.0)) + 32); 
+	temp = temp*(9.0/5.0) + 32; 
       }
     
     /* button reading */ 
