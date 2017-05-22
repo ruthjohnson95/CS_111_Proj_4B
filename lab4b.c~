@@ -126,7 +126,7 @@ int main ( int argc, char **argv )
   struct pollfd fds;
   int ret;
   fds.fd = 0; /* this is STDIN */
-  fds.events = POLLIN;
+  fds.events = POLLIN | POLLHUP | POLLERR;
 
   if(logflag)
     {
@@ -135,8 +135,71 @@ int main ( int argc, char **argv )
 
   while(!mraa_gpio_read(gpio)){ // while button is not pressed
 
+    /* generate reports BEFORE getting input */
+
+    /* button reading */
+    int button_value = mraa_gpio_read(gpio);
+
+    time(&start);
+
+    if(elapsed >= period || FLAG )
+    {
+    /* Calculate temperature reading */
+    adcValue = mraa_aio_read(adc_a0);
+    float R;
+    R = 1023.0/((float)adcValue)-1.0;
+    R = 100000.0*R;
+    float temp  = 1.0/(log(R/100000.0)/B+1/298.15)-273.15;
+
+    /* Farenheit */
+    if(celcius == 0)
+      {
+  temp = temp*(9.0/5.0) + 32;
+      }
+
+
+    /* Local Time */
+
+    curtime = time (NULL);
+    struct tm *tm_struct = localtime (&curtime);
+    int hour = tm_struct -> tm_hour;
+    int min = tm_struct -> tm_min;
+    int sec = tm_struct -> tm_sec;
+
+    /* print logs  */
+    if(make_reports)
+      {
+  fprintf(stdout, "%d:%d:%d ",hour, min, sec);
+  fprintf (stdout, "%0.2f\n", temp);
+  //    fprintf(stdout, "Gpio is %d\n", button_value);
+  if(logflag)
+    {
+      dprintf(fp, "%d:%d:%d ",hour, min, sec);
+      dprintf (fp, "%0.2f\n", temp);
+      //    fprintf(fp, "Gpio is %d\n", button_value);
+    }
+      } // end of if reporting
+
+    } // end of if elapsed
+
+    time(&end);
+    elapsed = difftime(end, start);
+
+    if (elapsed > period) {
+      time(&start);
+    }
+
+      FLAG = 0;
+
     /* poll for input */
     ret = poll(&fds, 1, 0);
+
+    /* check for polling errors */
+    if(fds.revents & (POLLHUP+POLLERR))
+      {
+	fprintf(stderr, "Error in polling\n");
+	exit(1);
+      }
 
     /* read input if there */
     if(fds.revents & POLLIN)
@@ -208,60 +271,6 @@ int main ( int argc, char **argv )
 	  }
 
       } // end of poll if
-
-    /* button reading */
-    int button_value = mraa_gpio_read(gpio);
-
-    time(&start);
-
-    if(elapsed >= period || FLAG )
-    {
-    /* Calculate temperature reading */
-    adcValue = mraa_aio_read(adc_a0);
-    float R;
-    R = 1023.0/((float)adcValue)-1.0;
-    R = 100000.0*R;
-    float temp  = 1.0/(log(R/100000.0)/B+1/298.15)-273.15;
-
-    /* Farenheit */
-    if(celcius == 0)
-      {
-	temp = temp*(9.0/5.0) + 32;
-      }
-
-
-    /* Local Time */
-
-    curtime = time (NULL);
-    struct tm *tm_struct = localtime (&curtime);
-    int hour = tm_struct -> tm_hour;
-    int min = tm_struct -> tm_min;
-    int sec = tm_struct -> tm_sec;
-
-    /* print logs  */
-    if(make_reports)
-      {
-	fprintf(stdout, "%d:%d:%d ",hour, min, sec);
-	fprintf (stdout, "%0.2f\n", temp);
-	//    fprintf(stdout, "Gpio is %d\n", button_value);
-	if(logflag)
-	  {
-	    dprintf(fp, "%d:%d:%d ",hour, min, sec);
-	    dprintf (fp, "%0.2f\n", temp);
-	    //    fprintf(fp, "Gpio is %d\n", button_value);
-	  }
-      } // end of if reporting
-
-    } // end of if elapsed
-
-    time(&end);
-    elapsed = difftime(end, start);
-
-    if (elapsed > period) {
-      time(&start);
-    }
-
-      FLAG = 0;
 
   } // end of infinite for-loop
 
