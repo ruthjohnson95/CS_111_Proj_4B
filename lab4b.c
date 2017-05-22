@@ -30,6 +30,7 @@ void shutdown()
 
 void process_input(char* buffer)
 {
+  /*
   if(strcmp(buffer, "OFF"))
     {
       fprintf(fp, "OFF\n"); 
@@ -64,6 +65,7 @@ void process_input(char* buffer)
       fprintf(stderr, "Error: input option not valid"); 
       //      exit(1); 
     }
+  */
 }
 
 int main()
