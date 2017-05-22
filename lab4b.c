@@ -1,6 +1,7 @@
 #include "mraa.h"
 #include <math.h>
 #include <time.h> 
+#include <unistd.h>
 
 const int B = 4275;
 const int R0 = 100;
@@ -11,8 +12,12 @@ int main()
   mraa_aio_context adc_a0;
   mraa_gpio_context gpio;
 
+  time_t begin,end;
+
   uint16_t adcValue = 0;
   float adc_value_float = 0.0;
+
+  int period = 1; 
 
   adc_a0 = mraa_aio_init(0);
 
@@ -27,7 +32,7 @@ int main()
   struct tm *loctime;
 
   for (;;) {
-
+    
     /* Calculate temperature reading */ 
     adcValue = mraa_aio_read(adc_a0);
     float R;
@@ -45,12 +50,13 @@ int main()
     int min = tm_struct -> tm_min; 
     int sec = tm_struct -> tm_sec; 
 
-
     /* print logs  */
     printf ("The temperature is %0.2f degree Celcius\n", temp);
     fprintf(stdout, "Gpio is %d\n", button_value);
     fprintf(stdout, "%d:%d:%d \n",hour, min, sec); 
 
+    /* delay a certain amount of time */ 
+    sleep(period*1000);
   }
   mraa_aio_close(adc_a0);
   return MRAA_SUCCESS;
