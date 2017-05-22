@@ -30,7 +30,7 @@ void shutdown()
 
 void process_input(char* buffer)
 {
-  /*
+  
   if(strcmp(buffer, "OFF"))
     {
       fprintf(fp, "OFF\n"); 
@@ -44,8 +44,10 @@ void process_input(char* buffer)
   else if(strcmp(buffer, "START"))
     {
       make_reports = 1 ; 
+      fprintf(stderr,"START\n");
       fprintf(fp,"START\n"); 
-    }
+      
+  }
   else if(strcmp(buffer, "SCALE=F"))
     {
       celcius=0;
@@ -65,7 +67,7 @@ void process_input(char* buffer)
       fprintf(stderr, "Error: input option not valid"); 
       //      exit(1); 
     }
-  */
+  
 }
 
 int main()
