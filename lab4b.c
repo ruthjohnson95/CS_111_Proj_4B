@@ -160,7 +160,7 @@ int main()
 
   mraa_aio_close(adc_a0);
 
-  shutdown(); 
+  //  shutdown(); 
 
   return MRAA_SUCCESS;
 }
