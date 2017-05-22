@@ -17,7 +17,16 @@ int main()
   uint16_t adcValue = 0;
   float adc_value_float = 0.0;
 
-  int period = 1; 
+  int period = 1;
+  char* filename = "log.txt"; 
+  int ofd = 1; 
+
+  ofd = creat(outfile, 0666);
+  if (ofd >= 0) {
+    close(1);
+    dup(ofd);
+    close(ofd);
+  }
 
   adc_a0 = mraa_aio_init(0);
 
@@ -57,6 +66,8 @@ int main()
 
     /* delay a certain amount of time */ 
     sleep(period);
+
+    fprintf(ofd, "hi"); 
   }
   mraa_aio_close(adc_a0);
   return MRAA_SUCCESS;
