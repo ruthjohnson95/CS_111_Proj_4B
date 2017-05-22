@@ -78,7 +78,7 @@ int main()
 	printf("You typed: %s \n",buffer);
 
 	
-	if(!strcmp(buffer, "OFF"))
+	if(strcmp(buffer, "OFF"))
 	  {
 	    fprintf(stderr, "...OFF\n");
 	    //	    fprintf(fp, "OFF\n");
