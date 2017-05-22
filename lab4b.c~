@@ -167,28 +167,28 @@ int main ( int argc, char **argv )
     /* print logs  */
     if(make_reports)
       {
-  fprintf(stdout, "%02d:%02d:%02d ",hour, min, sec);
-  fprintf (stdout, "%0.1f\n", temp);
-  //    fprintf(stdout, "Gpio is %d\n", button_value);
-  if(logflag)
-    {
-      dprintf(fp, "%02d:%02d:%02d ",hour, min, sec);
-      dprintf (fp, "%0.1f\n", temp);
+	fprintf(stdout, "%02d:%02d:%02d ",hour, min, sec);
+	fprintf (stdout, "%0.1f\n", temp);
+	//    fprintf(stdout, "Gpio is %d\n", button_value);
+	if(logflag)
+	  {
+	    dprintf(fp, "%02d:%02d:%02d ",hour, min, sec);
+	    dprintf (fp, "%0.1f\n", temp);
       //    fprintf(fp, "Gpio is %d\n", button_value);
-    }
+	  }
       } // end of if reporting
-
+    
     unsigned int retTime = time(0) + period;   // Get finishing time.
-    while (time(0) < retTime && !mraa_gpio_read(gpio))
+    while (time(0) < retTime )
       {
         // only do polling and button input
 	/* get button state */
 	//	gpio = mraa_gpio_init(button_pin);
 	// mraa_gpio_dir(gpio, MRAA_GPIO_IN);
 
-    /* poll for input */
+	/* poll for input */
     ret = poll(&fds, 1, 0);
-
+    
     /* check for polling errors */
     if(fds.revents & (POLLHUP+POLLERR))
       {
