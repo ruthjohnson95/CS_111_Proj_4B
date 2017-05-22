@@ -10,6 +10,9 @@
 const int B = 4275;
 const int R0 = 100;
 const int button_pin = 3; 
+FILE *fp;
+int make_reports=1; 
+int celcius=1; // default: celcius; alt: F 
 
 void shutdown()
 {
@@ -20,8 +23,8 @@ void shutdown()
   int hour = tm_struct -> tm_hour;
   int min = tm_struct -> tm_min;
   int sec = tm_struct -> tm_sec;
-  
-  fprintf(stdout, "%d:%d:%d SHUTDOWN\n",hour, min, sec);
+
+  fprintf(fp, "%d:%d:%d SHUTDOWN\n",hour, min, sec);
   exit(0); 
 }
 
@@ -29,23 +32,28 @@ void process_input(char* buffer)
 {
   if(strcmp(buffer, "OFF"))
     {
-      
+      fprintf(fp, "OFF\n"); 
+      shutdown(); 
     }
   else if(strcmp(buffer, "STOP"))
     {
-
+      make_reports = 0; 
+      fprintf(fp,"STOP\n"); 
     }
   else if(strcmp(buffer, "START"))
     {
-
+      make_reports = 1 ; 
+      fprintf(fp,"START\n"); 
     }
   else if(strcmp(buffer, "SCALE=F"))
     {
-
+      celcius=0;
+      fprintf(fp, "SCALE=F\n");
     }
   else if(strcmp(buffer, "SCALE=C"))
     {
-
+      celcius=1; 
+      printf(fp, "SCALE=C\n"); 
     }
   else if(strcmp(buffer, "PERIOD=")) // TODO
     {
@@ -82,8 +90,6 @@ int main()
 
   time_t curtime; 
   
-  FILE *fp; 
-
   time_t start, end;
   double elapsed;
 
