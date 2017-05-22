@@ -75,6 +75,7 @@ int main()
 
 
   }
+  fclose(fp); 
   mraa_aio_close(adc_a0);
   return MRAA_SUCCESS;
 }

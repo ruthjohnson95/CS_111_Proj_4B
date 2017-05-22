@@ -36,12 +36,9 @@ int main()
   struct tm *loctime;
 
   FILE *fp; 
-  fp = fopen("log.txt", "w"); 
-
-  fprintf(fp, "Testing...\n");
 
   for (;;) {
-    
+    fp = fopen("log.txt", "w");
     /* Calculate temperature reading */ 
     adcValue = mraa_aio_read(adc_a0);
     float R;
@@ -69,13 +66,14 @@ int main()
     fprintf (fp, "The temperature is %0.2f degree Celcius\n", temp);
     fprintf(fp, "Gpio is %d\n", button_value);
     fprintf(fp, "%d:%d:%d \n",hour, min, sec);
+    fclose(fp);
 
     /* delay a certain amount of time */ 
     sleep(period);
 
 
   }
-  fclose(fp); 
+
   mraa_aio_close(adc_a0);
   return MRAA_SUCCESS;
 }
