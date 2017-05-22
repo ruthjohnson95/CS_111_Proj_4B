@@ -19,14 +19,6 @@ int main()
 
   int period = 1;
   char* filename = "log.txt"; 
-  int ofd = 1; 
-
-  ofd = creat(outfile, 0666);
-  if (ofd >= 0) {
-    close(1);
-    dup(ofd);
-    close(ofd);
-  }
 
   adc_a0 = mraa_aio_init(0);
 
@@ -39,6 +31,9 @@ int main()
 
   time_t curtime;
   struct tm *loctime;
+
+  FILE *fp; 
+  fp = fopen(filename); 
 
   for (;;) {
     
@@ -60,14 +55,18 @@ int main()
     int sec = tm_struct -> tm_sec; 
 
     /* print logs  */
-    printf ("The temperature is %0.2f degree Celcius\n", temp);
+    fprintf (stdout, "The temperature is %0.2f degree Celcius\n", temp);
     fprintf(stdout, "Gpio is %d\n", button_value);
     fprintf(stdout, "%d:%d:%d \n",hour, min, sec); 
+
+    fprintf (fp, "The temperature is %0.2f degree Celcius\n", temp);
+    fprintf(fp, "Gpio is %d\n", button_value);
+    fprintf(fp, "%d:%d:%d \n",hour, min, sec);
 
     /* delay a certain amount of time */ 
     sleep(period);
 
-    fprintf(ofd, "hi"); 
+
   }
   mraa_aio_close(adc_a0);
   return MRAA_SUCCESS;
