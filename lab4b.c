@@ -76,14 +76,6 @@ int main()
       {
 	characters = getline(&buffer,&bufsize,stdin);
 	printf("You typed: %s \n",buffer);
-	
-	if(strcmp("START", buffer))
-          {
-            make_reports = 1 ;
-            fprintf(stderr, "...START\n");
-          }
-
-
 
 	if(strcmp(buffer, "OFF"))
 	  {
