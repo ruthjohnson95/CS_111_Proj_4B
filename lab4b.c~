@@ -60,7 +60,7 @@ int main()
   fds.fd = 0; /* this is STDIN */
   fds.events = POLLIN;
 
-  fp = open(filename;, O_CREAT | O_WRONLY | O_NONBLOCK);
+  fp = open(filename, O_CREAT | O_WRONLY | O_NONBLOCK);
 
   while(!mraa_gpio_read(gpio)){ // while button is not pressed 
 
