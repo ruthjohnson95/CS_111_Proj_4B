@@ -24,7 +24,7 @@ void shutdown()
   int min = tm_struct -> tm_min;
   int sec = tm_struct -> tm_sec;
 
-  fprintf(fp, "%d:%d:%d SHUTDOWN\n",hour, min, sec);
+  dprintf(fp, "%d:%d:%d SHUTDOWN\n",hour, min, sec);
   exit(0); 
 }
 
