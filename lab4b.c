@@ -15,7 +15,7 @@ int main()
   }
 
   for (;;) {
-    adcvalue = mraa_aio_read(adc_a0);
+    adcValue = mraa_aio_read(adc_a0);
     float R;
     R = 1023.0/((float)adcValue)-1.0;    // Promote to float
     R = 100000.0*R;
