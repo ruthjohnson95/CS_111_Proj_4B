@@ -77,9 +77,6 @@ int main()
 	characters = getline(&buffer,&bufsize,stdin);
 	//	printf("You typed: %s \n",buffer);
 
-	char* temp = strstr(buffer, "PERIOD=");
-	fprintf(stderr, "%s\n", &temp) ;
-
 	if(strcmp(buffer, "OFF\n") == 0)
 	  {
 	    fprintf(stderr, "...OFF\n");
@@ -109,11 +106,12 @@ int main()
 	    fprintf(stderr, "...SCALE=C\n");
 	    fprintf(fp, "SCALE=C\n");
 	  }
-	else if( strstr(buffer, "PERIOD=") != NULL) 
+	else if( strstr(buffer, "PERIOD=") != NULL ) 
 	  {
 	    //int index = strchr(buffer,"=")-buffer;
-	    
-	    
+
+	    period = atoi(buffer+7);
+	    fprintf(stderr, "...PERIOD=%d\n", period);
 	    fprintf(fp, "...PERIOD=\n");
 	  }
 	else
