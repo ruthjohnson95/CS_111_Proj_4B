@@ -5,4 +5,4 @@
 CC=gcc
 
 default: lab4b.o
-	$(CC) -lmra  -o lab4b lab4b.c
+	$(CC) -lmraa  -o lab4b lab4b.c
