@@ -2,30 +2,40 @@
 
 gcc -lmraa -lm  -o lab4b lab4b.c
 
-# regular case 
-./lab4b
-OFF
+let errors=0
 
-if [ "$?" -ne 0 ]; then
-    echo "...ERROR has occured"
-    exit 1; 
-fi
-
-# with command line args 
-
-./lab4b --log=test --period=5 --scale=C
-START
-START
-STOP
-STOP
+./lab4b --period=2 --scale=C --log="LOGFILE" <<-EOF
+SCALE=F
 SCALE=F
 SCALE=C
-PERIOD=2
+SCALE=C
+PERIOD=1
+PERIOD=10
+START
+START
+STOP
+STOP
 OFF
+EOF
 
-rm test 
+ret=$?
 
-if [ "$?" -ne 0]; then
-    echo "...ERROR has occured"
-    exit 1;
+if [ $ret -ne 0 ]
+then
+  let errors+=1
+  echo "...ERROR: failed smoke test"
 fi
+
+if [ ! -s LOGFILE ]
+then
+  let errors+=1
+  echo "...ERROR: did not create a log file"
+else 
+  rm LOGFILE 
+fi
+
+if [ $errors -eq 0 ]; then
+  echo "...PASSED SMOKE TEST"
+fi
+
+
