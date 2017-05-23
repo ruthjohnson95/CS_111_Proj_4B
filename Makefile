@@ -7,8 +7,12 @@ CC=gcc
 default: lab4b.o
 	$(CC) -lmraa -lm  -o lab4b lab4b.c
 check:
-
+	bash test_script.sh
 clean:
-
+	rm lab4b-704275412.tar.gz
+	rm lab4b.c
+	rm README
+	rm Makefile
+	rm test_script.sh
 dist:
-	tar -czvf lab4b-704275412.tar.gz lab4b.c README Makefile
+	tar -czvf lab4b-704275412.tar.gz lab4b.c README Makefile test_script.sh

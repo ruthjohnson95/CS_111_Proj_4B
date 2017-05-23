@@ -4,7 +4,7 @@ gcc -lmraa -lm  -o lab4b lab4b.c
 
 # regular case 
 ./lab4b
-OFF
+echo "OFF" 
 
 if [ "$?" -ne 0 ]; then
     echo "...ERROR has occured"
@@ -14,14 +14,14 @@ fi
 # with command line args 
 
 ./lab4b --log=test --period=5 --scale=C
-START
-START
-STOP
-STOP
-SCALE=F
-SCALE=C
-PERIOD=2
-OFF
+echo "START"
+echo "START"
+echo "STOP"
+echo "STOP"
+echo "SCALE=F"
+echo "SCALE=C"
+echo "PERIOD=2"
+echo "OFF" 
 
 rm test 
 
