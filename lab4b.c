@@ -21,12 +21,6 @@ char* filename;
 
 int GO_FLAG=1; 
 
-void waitFor(unsigned int secs) {
-  unsigned int retTime = time(0) + secs;   // Get finishing time.
-  while (time(0) < retTime);               // Loop until it arrives.
-  GO_FLAG=1; 
-}
-
 void shutdown()
 {
   // log time and SHUTDOWN
@@ -36,10 +30,11 @@ void shutdown()
   int hour = tm_struct -> tm_hour;
   int min = tm_struct -> tm_min;
   int sec = tm_struct -> tm_sec;
-
+  
   dprintf(fp, "%02d:%02d:%02d SHUTDOWN\n",hour, min, sec);
   exit(0);
 }
+
 void set_args(int argc, char **argv)
 {
   while(1){
@@ -155,7 +150,6 @@ int main ( int argc, char **argv )
 	temp = temp*(9.0/5.0) + 32;
       }
 
-
     /* Local Time */
     time_t curtime;
     curtime = time (NULL);
@@ -169,12 +163,12 @@ int main ( int argc, char **argv )
       {
 	fprintf(stdout, "%02d:%02d:%02d ",hour, min, sec);
 	fprintf (stdout, "%0.1f\n", temp);
-	//    fprintf(stdout, "Gpio is %d\n", button_value);
+
 	if(logflag)
 	  {
 	    dprintf(fp, "%02d:%02d:%02d ",hour, min, sec);
 	    dprintf (fp, "%0.1f\n", temp);
-      //    fprintf(fp, "Gpio is %d\n", button_value);
+
 	  }
       } // end of if reporting
     
@@ -188,7 +182,7 @@ int main ( int argc, char **argv )
 	    shutdown(); 
 	  }
 
-	/* poll for input */
+    /* poll for input */
     ret = poll(&fds, 1, 0);
     
     /* check for polling errors */
@@ -251,8 +245,6 @@ int main ( int argc, char **argv )
 	  }
 	else if( strstr(buffer, "PERIOD=") != NULL )
 	  {
-	    //int index = strchr(buffer,"=")-buffer;
-
 	    period = atoi(buffer+7);
 
 	    //	    fprintf(stderr, "...PERIOD=%d\n", period);
@@ -282,5 +274,5 @@ int main ( int argc, char **argv )
 
   shutdown();
 
-  return MRAA_SUCCESS;
+  return 0;
 }

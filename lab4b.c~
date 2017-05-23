@@ -183,8 +183,10 @@ int main ( int argc, char **argv )
       {
         // only do polling and button input
 	/* get button state */
-	//	gpio = mraa_gpio_init(button_pin);
-	// mraa_gpio_dir(gpio, MRAA_GPIO_IN);
+	if(mraa_gpio_read(gpio))
+	  {
+	    shutdown(); 
+	  }
 
 	/* poll for input */
     ret = poll(&fds, 1, 0);
